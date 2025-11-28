@@ -3,8 +3,8 @@ const CreateUserUseCase = require('../Application/userUseCases/createUserUseCase
 const GetUsersUseCase = require('../Application/userUseCases/getUsersUseCase');
 const productRoutes = require('./Routes/usersRoutes');
 const UserController = require('./userController');
-const CreateUserController = require('./handlers/createProductController');
-const GetUsersController = require('./handlers/getProductController');
+const CreateUserController = require('./handlers/createProductHandler');
+const GetUsersController = require('./handlers/getProductHandler');
 function init_users(app) {
     //repository - choose adapter by env (USE_IN_MEMORY=true or NODE_ENV=test to use memory)
     let repository;
