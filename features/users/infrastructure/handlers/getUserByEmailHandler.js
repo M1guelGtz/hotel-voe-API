@@ -1,4 +1,4 @@
-class getUserByEmailHandler {
+class GetUserByEmailHandler {
     constructor(getUserByEmailUseCase) {
         this.getUserByEmailUseCase = getUserByEmailUseCase;
     }
@@ -14,4 +14,4 @@ class getUserByEmailHandler {
     }
 }
 
-module.exports = getUserByEmailHandler;
+module.exports = GetUserByEmailHandler;

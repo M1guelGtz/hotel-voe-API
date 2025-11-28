@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 class InMemoryUserRepository {
   constructor() {
     this.users = [];
@@ -5,7 +7,12 @@ class InMemoryUserRepository {
   }
 
   async postUsers(user) {
-    const newUser = { id: this.nextId++, name: user.name, email: user.email };
+    // Hash password if present
+    let passwordToSave = user.password;
+    if (passwordToSave !== undefined && passwordToSave !== null) {
+      passwordToSave = await bcrypt.hash(passwordToSave, 10);
+    }
+    const newUser = { id: this.nextId++, name: user.name, email: user.email, password: passwordToSave };
     this.users.push(newUser);
     return newUser;
   }
@@ -41,18 +48,15 @@ class InMemoryUserRepository {
   }
 
   async loginUser(email, password) {
-    const user = this.users.find(user => user.email === email && user.password === password);
-    return user || null;
+    const user = this.users.find(user => user.email === email);
+    if (!user) return null;
+    const match = await bcrypt.compare(password, user.password || '');
+    return match ? user : null;
   }
 
   async registerUser(user) {
-    const newUser = { id: this.nextId++, name: user.name, email: user.email, password: user.password };
-    this.users.push(newUser);
-    return newUser;
-  }
-
-  registerUser(user) {
-    const newUser = { id: this.nextId++, name: user.name, email: user.email, password: user.password };
+    const hashed = await bcrypt.hash(user.password, 10);
+    const newUser = { id: this.nextId++, name: user.name, email: user.email, password: hashed };
     this.users.push(newUser);
     return newUser;
   }

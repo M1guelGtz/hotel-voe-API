@@ -1,4 +1,4 @@
-class registeruserUseCase {
+class RegisterUserUseCase {
      constructor ( userRepository) {
         this.userRepository = userRepository;
      }
@@ -13,4 +13,4 @@ class registeruserUseCase {
     }
 }
 
-module.exports = registeruserUseCase;
+module.exports = RegisterUserUseCase;

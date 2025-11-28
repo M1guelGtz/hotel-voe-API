@@ -1,4 +1,4 @@
-class getUserByEmailUseCase {
+class GetUserByEmailUseCase {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
@@ -14,4 +14,4 @@ class getUserByEmailUseCase {
     }
 }
 
-module.exports = getUserByEmailUseCase;
+module.exports = GetUserByEmailUseCase;

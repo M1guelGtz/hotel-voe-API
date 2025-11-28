@@ -1,4 +1,4 @@
-class registerHandler {
+class RegisterHandler {
     constructor(createUserUseCase) {
         this.createUserUseCase = createUserUseCase;
     }
@@ -14,4 +14,4 @@ class registerHandler {
     }
 }
 
-module.exports = registerHandler;
+module.exports = RegisterHandler;

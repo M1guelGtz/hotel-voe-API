@@ -1,7 +1,13 @@
 class UserController {
-    constructor(createController, getController) {
+    constructor(createController, getController, deleteController, getByIdController, putController,getByEmailController, registerController , loginController) {
         this.createController = createController;
         this.getController = getController;
+        this.putController = putController;
+        this.deleteController = deleteController;
+        this.getByIdController = getByIdController;
+        this.getByEmailController = getByEmailController;
+        this.loginController = loginController;
+        this.registerController = registerController;
     }
 
     createUser(req, res) {
@@ -21,7 +27,7 @@ class UserController {
         return this.deleteController.handle(req, res);
     }
 
-    getUserById(req, res) {
+    getUsersById(req, res) {
         return this.getByIdController.handle(req, res);
     }
     getUserByEmail(req, res) {

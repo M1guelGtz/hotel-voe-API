@@ -1,11 +1,11 @@
-class putUsersUseCase {
+class PutUsersUseCase {
      constructor({ usersRepository }) {
          this.usersRepository = usersRepository;
      }
      
      async execute(id, userData) {
-         if (!userData || typeof userData.name !== 'string' || userData.name.trim() === '') {
-             const err = new Error('`name` is required and must be a non-empty string');
+         if (!userData || typeof userData.username !== 'string' || userData.username.trim() === '') {
+             const err = new Error('username is required and must be a non-empty string');
              err.statusCode = 400;
              throw err;
          }
@@ -13,4 +13,4 @@ class putUsersUseCase {
      }
 }
 
-module.exports = putUsersUseCase;
+module.exports = PutUsersUseCase;

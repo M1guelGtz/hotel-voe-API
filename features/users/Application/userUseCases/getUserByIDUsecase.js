@@ -1,4 +1,4 @@
-class getUsersByIdUseCase {
+class GetUsersByIdUseCase {
     constructor({ userRepository }) {
         this.userRepository = userRepository;
     }
@@ -12,6 +12,7 @@ class getUsersByIdUseCase {
         }   
         return user;
     }
+    
 }
 
-module.exports = getUsersByIdUseCase;
+module.exports = GetUsersByIdUseCase;

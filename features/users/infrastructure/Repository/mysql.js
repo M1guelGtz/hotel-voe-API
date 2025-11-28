@@ -1,4 +1,5 @@
 const db = require('../../../../core/db');
+const bcrypt = require('bcryptjs');
 
 class MySQL {
     constructor() {
@@ -8,13 +9,18 @@ class MySQL {
     // Save a product (name, price)
     // Save a user (user object with name, email)
     async postUsers(user) {
-        const query = 'INSERT INTO usuario (name, email) VALUES (?, ?)';
+        const query = 'INSERT INTO usuario (username, password, id_persona) VALUES (?, ?, 1)';
         try {
-            const result = await db.executePreparedQuery(query, [user.name, user.email]);
+            // Hash password if provided
+            let passwordToSave = user.password;
+            if (passwordToSave !== undefined && passwordToSave !== null) {
+                passwordToSave = await bcrypt.hash(passwordToSave, 10);
+            }
+            const result = await db.executePreparedQuery(query, [user.username, passwordToSave]);
             // mysql2 returns insertId on result
             const insertId = result && (result.insertId || result.insert_id || result.affectedRows ? result.insertId : null);
             if (insertId) {
-                return { id: insertId, name: user.name, email: user.email };
+                return { id: insertId, username: user.username, password: user.password };
             }
             // fallback: return raw result
             return result;
@@ -33,17 +39,22 @@ class MySQL {
             throw new Error('Error fetching rows: ' + err.message);
         }
     }
-    async putUsers() {
-        const query = 'UPDATE usuario SET name = ?, email = ? WHERE id = ?';
+    async putUsers(id, userData) {
+        const query = 'UPDATE usuario SET password = ?, username = ? WHERE id_usuario = ?';
         try {
-            const rows = await db.fetchRows(query);
+            // Hash password if provided
+            let passwordToSave = userData.password;
+            if (passwordToSave !== undefined && passwordToSave !== null) {
+                passwordToSave = await bcrypt.hash(passwordToSave, 10);
+            }
+            const rows = await db.fetchRows(query, [passwordToSave, userData.username, id]);
             return rows;
         } catch (err) {
             throw new Error('Error fetching rows: ' + err.message);
         }
     }
     async deleteUsers(id) {
-        const query = 'DELETE FROM usuario WHERE id = ?';
+        const query = 'DELETE FROM usuario WHERE id_usuario = ?';
         try {
             const rows = await db.fetchRows(query, [id]);
             return rows;
@@ -52,7 +63,7 @@ class MySQL {
         }
     }
     async getUsersById(id) {
-        const query = 'SELECT * FROM usuario WHERE id = ?';
+        const query = 'SELECT * FROM usuario WHERE id_usuario = ?';
         try {
             const rows = await db.executePreparedQuery(query, [id]);
             return rows[0]; // Assuming id is unique, return the first match
@@ -61,7 +72,7 @@ class MySQL {
         }
     }
     async getUserByEmail(email) {
-        const query = 'SELECT * FROM usuario WHERE email = ?';
+        const query = 'SELECT * FROM usuario WHERE username = ?';
         try {
             const rows = await db.executePreparedQuery(query, [email]);
             return rows[0]; // Assuming email is unique, return the first match
@@ -70,18 +81,25 @@ class MySQL {
         }
     }
     async loginUser(email, password) {
-        const query = 'SELECT * FROM usuario WHERE email = ? AND password = ?';
+        const query = 'SELECT * FROM usuario WHERE username = ?';
         try {
-            const rows = await db.executePreparedQuery(query, [email, password]);
-            return rows[0]; // Assuming email is unique, return the first match
+            const rows = await db.executePreparedQuery(query, [email]);
+            const user = rows && rows[0];
+            if (!user) return null;
+            const hashed = user.password;
+            const match = await bcrypt.compare(password, hashed);
+            return match ? user : null;
         } catch (err) {
             throw new Error('Error logging in user: ' + err.message);
         }
     }
     async registerUser(user) {
-        const query = 'INSERT INTO usuario (name, email, password) VALUES (?, ?, ?)';
+        const query = 'INSERT INTO usuario (username, password) VALUES (?, ?)';
         try {
-            const result = await db.executePreparedQuery(query, [user.name, user.email, user.password]);
+            // Hash password before saving
+            const saltRounds = 10;
+            const hashed = await bcrypt.hash(user.password, saltRounds);
+            const result = await db.executePreparedQuery(query, [user.email, hashed]);
             const insertId = result && (result.insertId || result.insert_id || result.affectedRows ? result.insertId : null);
             if (insertId) {
                 return { id: insertId, name: user.name, email: user.email };

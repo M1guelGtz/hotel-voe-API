@@ -5,6 +5,20 @@ const productRoutes = require('./Routes/usersRoutes');
 const UserController = require('./userController');
 const CreateUserController = require('./handlers/createUserHandler');
 const GetUsersController = require('./handlers/getUserHandler');
+const DeleteUserUseCase = require('../Application/userUseCases/deleteUserUseCase');
+const GetUsersByIdUseCase = require('../Application/userUseCases/getUserByIDUsecase');
+const PutUsersUseCase = require('../Application/userUseCases/putUserUseCase');
+const LoginUserUseCase = require('../Application/authUseCases/loginUseCase');
+const GetUserByEmailUseCase = require('../Application/userUseCases/getUserByEmailUseCase');
+const RegisterUserUseCase = require('../Application/authUseCases/registerUserUseCase');
+const DeleteUserHandler = require('./handlers/deleteUserHandler');
+const GetUserByIDHandler = require('./handlers/getUserByIDHandler');
+const PutUserHandler = require('./handlers/putUserHandler');
+const GetUserByEmailHandler = require('./handlers/getUserByEmailHandler');
+const RegisterHandler = require('./handlers/registerhandler');
+const LoginHandler = require('./handlers/loginhandler');
+
+
 function init_users(app) {
     //repository - choose adapter by env (USE_IN_MEMORY=true or NODE_ENV=test to use memory)
     let repository;
@@ -20,14 +34,25 @@ function init_users(app) {
     //use cases
     const createUserUseCase = new CreateUserUseCase(repository);
     const getUsersUseCase = new GetUsersUseCase(repository);
-
+    const deleteUserUsecase = new DeleteUserUseCase({ userRepository: repository });
+    const getUserByIdUsecase = new GetUsersByIdUseCase({ userRepository: repository });
+    const putUserUsecase = new PutUsersUseCase({ usersRepository: repository });
+    const getUserByEmailUsecase = new GetUserByEmailUseCase(repository);
+    const loginUserUsecase = new LoginUserUseCase(repository);
+    const registerUserUseCase = new RegisterUserUseCase(repository);
 
     //controllers
     const createUserController = new CreateUserController(createUserUseCase);
     const getUsersController = new GetUsersController(getUsersUseCase);
+    const deleteUserController = new DeleteUserHandler(deleteUserUsecase);
+    const getUserByIdController = new GetUserByIDHandler(getUserByIdUsecase);
+    const putUserController = new PutUserHandler(putUserUsecase);
+    const getUserByEmailController = new GetUserByEmailHandler(getUserByEmailUsecase);   
+    const registerUserController = new RegisterHandler(registerUserUseCase);
+    const loginUserController = new LoginHandler(loginUserUsecase);
 
     //controlador general
-    const userController = new UserController(createUserController, getUsersController);
+    const userController = new UserController(createUserController, getUsersController, deleteUserController, getUserByIdController, putUserController, getUserByEmailController, registerUserController, loginUserController);
 
     const routes = productRoutes(userController);
     app.use('/users', routes);

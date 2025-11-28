@@ -1,4 +1,4 @@
-class CreateProductController {
+class CreateUserHandler {
     constructor(createProductUseCase) {
         this.createProductUseCase = createProductUseCase;
     }
@@ -14,4 +14,4 @@ class CreateProductController {
     }
 }
 
-module.exports = CreateProductController;
+module.exports = CreateUserHandler;

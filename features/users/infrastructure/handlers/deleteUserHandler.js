@@ -1,4 +1,4 @@
-class deleteUserHandler {
+class DeleteUserHandler {
     constructor(deleteUserUseCase) {
         this.deleteUserUseCase = deleteUserUseCase;
     }
@@ -14,4 +14,4 @@ class deleteUserHandler {
     }
 }
 
-module.exports = deleteUserHandler;
+module.exports = DeleteUserHandler;

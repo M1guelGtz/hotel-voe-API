@@ -1,4 +1,4 @@
-class deleteUserUseCase {
+class DeleteUserUseCase {
     constructor({ userRepository }) {
         this.userRepository = userRepository;
     }
@@ -14,4 +14,4 @@ class deleteUserUseCase {
     }
 }
 
-module.exports = deleteUserUseCase;
+module.exports = DeleteUserUseCase;

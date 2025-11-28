@@ -1,4 +1,4 @@
-class loginHandler {
+class LoginHandler {
     constructor(loginUseCase) {
         this.loginUseCase = loginUseCase;
     }
@@ -14,4 +14,4 @@ class loginHandler {
     }
 }
 
-module.exports = loginHandler;
+module.exports = LoginHandler;

@@ -1,17 +1,18 @@
-class createUserHandler {
-    constructor(createUserUseCase) {
-        this.createUserUseCase = createUserUseCase;
+class PutUserHandler {
+    constructor(putUserUseCase) {
+        this.putUserUseCase = putUserUseCase;
     }
 
-    async handle(req, res) {
+    async handle(request, response) {
         try {
-            const userData = req.body;
-            const newUser = await this.createUserUseCase.execute(userData);
-            res.status(201).json(newUser);
+            const userId = request.params.id;
+            const userData = request.body;
+            const updatedUser = await this.putUserUseCase.execute(userId, userData);
+            response.status(200).json(updatedUser);
         } catch (error) {
-            res.status(400).json({ error: error.message });
+            response.status(error.statusCode || 500).json({ message: error.message });
         }
     }
 }
 
-module.exports = createUserHandler;
+module.exports = PutUserHandler;

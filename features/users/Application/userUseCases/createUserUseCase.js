@@ -6,13 +6,13 @@ class CreateUserUseCase {
     }
 
     execute(userData) {
-        if (!userData || typeof userData.name !== 'string' || userData.name.trim() === '') {
-            const err = new Error('`name` is required and must be a non-empty string');
+        if (!userData || typeof userData.username !== 'string' || userData.username.trim() === '') {
+            const err = new Error('`username` is required and must be a non-empty string');
             err.statusCode = 400;
             throw err;
         }
 
-        const user = new User({ name: userData.name.trim(), email: userData.email });
+        const user = new User({ username: userData.username.trim(), password: userData.password });
 
         if (typeof this.userRepository.postUsers === 'function') {
             return this.userRepository.postUsers(user);
