@@ -13,3 +13,5 @@ class getUserByEmailUseCase {
         return user;
     }
 }
+
+module.exports = getUserByEmailUseCase;

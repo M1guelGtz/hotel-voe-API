@@ -13,3 +13,5 @@ class deleteUserUseCase {
         return this.userRepository.deleteUsers(id);
     }
 }
+
+module.exports = deleteUserUseCase;

@@ -13,3 +13,5 @@ class loginUserUseCase {
         return user;
     }
 }
+
+module.exports = loginUserUseCase;

@@ -13,3 +13,5 @@ class getUsersByIdUseCase {
         return user;
     }
 }
+
+module.exports = getUsersByIdUseCase;

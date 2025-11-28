@@ -12,3 +12,5 @@ class registeruserUseCase {
         return this.userRepository.registerUser(userData);
     }
 }
+
+module.exports = registeruserUseCase;

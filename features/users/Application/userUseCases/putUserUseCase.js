@@ -12,3 +12,5 @@ class putUsersUseCase {
          return this.usersRepository.putUsers(id, userData);
      }
 }
+
+module.exports = putUsersUseCase;
