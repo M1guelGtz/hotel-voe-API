@@ -93,7 +93,7 @@ class MySQL {
             if (!user) return null;
             const hashed = user.password;
             const match = await bcrypt.compare(password, hashed);
-            return match ? user : null;
+            return match ? user : null ;
         } catch (err) {
             throw new Error('Error logging in user: ' + err.message);
         }
