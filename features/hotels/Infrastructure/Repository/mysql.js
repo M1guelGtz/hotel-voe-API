@@ -73,7 +73,7 @@ class MySQLHotelRepository {
 	async getHotelsByNombre(nombre) {
 		const query = 'SELECT * FROM Hotel WHERE nombre = ?';
 		try {
-			const rows = await db.executePreparedQuery(query, [nombre]);
+			const rows = await db.fetchRows(query, [nombre]);
 			return rows;
 		} catch (err) {
 			throw new Error('Error fetching hotels by nombre: ' + err.message);

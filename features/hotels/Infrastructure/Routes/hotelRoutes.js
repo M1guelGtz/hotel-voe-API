@@ -11,12 +11,12 @@ module.exports = function hotelRoutes(controller) {
     // Field searches (specific routes must come before the ':id' route)
     router.get('/nombre/:nombre', (req, res) => controller.getHotelByNombre(req, res));
     router.get('/direccion/:direccion', (req, res) => controller.getHotelByDireccion(req, res));
+    
     router.get('/email/:email', (req, res) => controller.getHotelByEmail(req, res));
     router.get('/telefono/:telefono', (req, res) => controller.getHotelByTelefono(req, res));
-
     // Single resource by id
     router.get('/:id', (req, res) => controller.getHotelById(req, res));
-
+    
     // Create / update / delete
     router.post('/', (req, res) => controller.createHotel(req, res));
     router.put('/:id', (req, res) => controller.putHotel(req, res));
