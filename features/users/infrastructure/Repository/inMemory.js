@@ -6,6 +6,8 @@ class InMemoryUserRepository {
     this.nextId = 1;
   }
 
+  /*
+
   async postUsers(user) {
     // Hash password if present
     let passwordToSave = user.password;
@@ -17,6 +19,10 @@ class InMemoryUserRepository {
     return newUser;
   }
 
+
+  */
+
+  
   async getUsers() {
     return this.users.slice();
   }

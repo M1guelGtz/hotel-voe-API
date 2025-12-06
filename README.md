@@ -8,15 +8,18 @@ Requisitos
 
 Variables de entorno (.env)
 
+# para cada feature crear una rama
+
+# separar en commits pequeños de cada cambio importante para que sea mas facil leer el codigo cambiado por commit
+
+# Solicitar PR una vez completado cada feature para asignacion de feature nuevo
+
 ```
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_USER=root
-DB_PASS=yourpassword
-DB_SCHEMA=your_schema
-DB_CONN_LIMIT=10
-# Use in-memory adapter (for dev/tests)
-USE_IN_MEMORY=false
+PORT=8000
+DB_HOST=localhost
+DB_USER=db_user
+DB_PASS=passw0rd
+DB_SCHEMA=_prj_sch
 ```
 
 Comandos
@@ -25,11 +28,6 @@ Comandos
 npm install
 npm start
 ```
-
-Endpoints
-- `GET /health` -> devuelve `{ status: 'ok' }` si DB disponible
-- `GET /users` -> lista usuarios
-- `POST /users` -> crea usuario JSON `{ name: '...', email: '...' }`
 
 Notas
 - La carpeta `features/users/Domain` contiene el port (contrato). En JS no se fuerza el contrato; los adaptadores deben implementar los métodos descritos allí (`postUsers`, `getUsers`).
