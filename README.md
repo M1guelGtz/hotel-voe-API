@@ -8,11 +8,11 @@ Requisitos
 
 Variables de entorno (.env)
 
-#para cada feature crear una rama
+# para cada feature crear una rama
 
-#separar en commits pequeños de cada cambio importante para que sea mas facil leer el codigo cambiado por commit
+# separar en commits pequeños de cada cambio importante para que sea mas facil leer el codigo cambiado por commit
 
-#Solicitar PR una vez completado cada feature para asignacion de feature nuevo
+# Solicitar PR una vez completado cada feature para asignacion de feature nuevo
 
 ```
 PORT=8000
