@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 class LoginUserUseCase {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -10,7 +12,13 @@ class LoginUserUseCase {
             err.statusCode = 401;
             throw err;
         }
-        return user;
+        const payload = {
+            id: user.id_usuario || user.id,
+            email: user.email || user.username,
+        };
+        const secret = process.env.JWT_SECRET || 'dev-secret';
+        const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+        return { token, user };
     }
 }
 

@@ -13,6 +13,12 @@ class User {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.personaID = personaID;
+        this.hotelID = hotelID;
+        this.email = email;
+        this.rol = rol;
+        this.activo = activo;
+        this.fechaRegistro = fechaRegistro;
     }
 }
 
