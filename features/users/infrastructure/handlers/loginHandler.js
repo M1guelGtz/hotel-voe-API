@@ -3,7 +3,7 @@ class LoginHandler {
         this.loginUseCase = loginUseCase;
     }
     
-    async handle(req, res) {
+    async handle (req, res) {
         const { email, password } = req.body;
         try {
             const token = await this.loginUseCase.execute(email, password);

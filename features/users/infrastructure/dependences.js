@@ -52,7 +52,15 @@ function init_users(app) {
     const loginUserController = new LoginHandler(loginUserUsecase);
 
     //controlador
-    const userController = new UserController( getUsersController, deleteUserController, getUserByIdController, putUserController, getUserByEmailController, registerUserController, loginUserController);
+    const userController = new UserController(
+        getUsersController,
+        deleteUserController,
+        getUserByIdController,
+        putUserController,
+        getUserByEmailController,
+        registerUserController,
+        loginUserController
+    );
 
     const routes = productRoutes(userController);
     app.use('/users', routes);

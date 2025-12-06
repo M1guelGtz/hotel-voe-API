@@ -36,7 +36,7 @@ class MySQL {
     */
     // Get all products
     async getUsers() {
-        const query = 'SELECT * FROM usuario';
+        const query = 'SELECT * FROM user';
         try {
             const rows = await db.fetchRows(query);
             return rows;
@@ -45,7 +45,7 @@ class MySQL {
         }
     }
     async putUsers(id, userData) {
-        const query = 'UPDATE usuario SET password = ?, username = ? WHERE id_usuario = ?';
+        const query = 'UPDATE users SET password = ?, username = ? WHERE id_usuario = ?';
         try {
             // Hash password if provided
             let passwordToSave = userData.password;
@@ -59,7 +59,7 @@ class MySQL {
         }
     }
     async deleteUsers(id) {
-        const query = 'DELETE FROM usuario WHERE id_usuario = ?';
+        const query = 'DELETE FROM user WHERE userID = ?';
         try {
             const rows = await db.fetchRows(query, [id]);
             return rows;
@@ -68,7 +68,7 @@ class MySQL {
         }
     }
     async getUsersById(id) {
-        const query = 'SELECT * FROM usuario WHERE id_usuario = ?';
+        const query = 'SELECT * FROM user WHERE userID = ?';
         try {
             const rows = await db.executePreparedQuery(query, [id]);
             return rows[0]; // Assuming id is unique, return the first match
@@ -77,7 +77,7 @@ class MySQL {
         }
     }
     async getUserByEmail(email) {
-        const query = 'SELECT * FROM usuario WHERE username = ?';
+        const query = 'SELECT * FROM user WHERE email = ?';
         try {
             const rows = await db.executePreparedQuery(query, [email]);
             return rows[0]; // Assuming email is unique, return the first match
@@ -86,7 +86,7 @@ class MySQL {
         }
     }
     async loginUser(email, password) {
-        const query = 'SELECT * FROM usuario WHERE username = ?';
+        const query = 'SELECT * FROM user WHERE email = ?';
         try {
             const rows = await db.executePreparedQuery(query, [email]);
             const user = rows && rows[0];
@@ -99,12 +99,12 @@ class MySQL {
         }
     }
     async registerUser(user) {
-        const query = 'INSERT INTO usuario (username, password, id_persona) VALUES (?, ?, 1)';
+        const query = 'INSERT INTO user (personaID, hotelID, email, password, username, rol, activo) VALUES (?, ?, ?, ?, ?, ?, ?)';
         try {
             // Hash password before saving
             const saltRounds = 10;
             const hashed = await bcrypt.hash(user.password, saltRounds);
-            const result = await db.executePreparedQuery(query, [user.email, hashed]);
+            const result = await db.executePreparedQuery(query, [user.personaID, user.hotelID, user.email, hashed, user.username, user.rol, user.activo]);
             const insertId = result && (result.insertId || result.insert_id || result.affectedRows ? result.insertId : null);
             if (insertId) {
                 return { id: insertId, name: user.name, email: user.email };

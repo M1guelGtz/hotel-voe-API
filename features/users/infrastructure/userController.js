@@ -1,13 +1,13 @@
 class UserController {
-    constructor(createController, getController, deleteController, getByIdController, putController,getByEmailController, registerController , loginController) {
+    constructor(getController, deleteController, getByIdController, putController,getByEmailController, registerController , loginController) {
         //this.createController = createController;
         this.getController = getController;
-        this.putController = putController;
         this.deleteController = deleteController;
         this.getByIdController = getByIdController;
+        this.putController = putController;
         this.getByEmailController = getByEmailController;
-        this.loginController = loginController;
         this.registerController = registerController;
+        this.loginController = loginController;
     }
 
 
