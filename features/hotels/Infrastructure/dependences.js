@@ -1,32 +1,32 @@
-const MySQLAdapter = require('./Infrastructure/Repository/mysql');
+const MySQLAdapter = require('./Repository/mysql');
 
 // UseCases
-const CreateHotelUseCase = require('./Application/hotelUseCases/createHotelUseCase');
-const GetHotelsUseCase = require('./Application/hotelUseCases/getHotelsUseCase');
-const GetHotelsByActivoUseCase = require('./Application/hotelUseCases/getHotelsByActivoUseCase');
-const GetHotelByIdUseCase = require('./Application/hotelUseCases/getHotelByIdUseCase');
-const GetHotelByNombreUseCase = require('./Application/hotelUseCases/getHotelByNombreUseCase');
-const GetHotelByDireccionUseCase = require('./Application/hotelUseCases/getHotelByDireccionUseCase');
-const GetHotelByEmailUseCase = require('./Application/hotelUseCases/getHotelByEmailUseCase');
-const GetHotelByTelefonoUseCase = require('./Application/hotelUseCases/getHotelByTelefonoUseCase');
-const DeleteHotelUseCase = require('./Application/hotelUseCases/deleteHotelUseCase');
-const PutHotelUseCase = require('./Application/hotelUseCases/putHotelUseCase');
+const CreateHotelUseCase = require('../Application/hotelUseCases/createHotelUseCase');
+const GetHotelsUseCase = require('../Application/hotelUseCases/getHotelsUseCase');
+const GetHotelsByActivoUseCase = require('../Application/hotelUseCases/getHotelsByActivoUseCase');
+const GetHotelByIdUseCase = require('../Application/hotelUseCases/getHotelByIdUseCase');
+const GetHotelByNombreUseCase = require('../Application/hotelUseCases/getHotelByNombreUseCase');
+const GetHotelByDireccionUseCase = require('../Application/hotelUseCases/getHotelByDireccionUseCase');
+const GetHotelByEmailUseCase = require('../Application/hotelUseCases/getHotelByEmailUseCase');
+const GetHotelByTelefonoUseCase = require('../Application/hotelUseCases/getHotelByTelefonoUseCase');
+const DeleteHotelUseCase = require('../Application/hotelUseCases/deleteHotelUseCase');
+const PutHotelUseCase = require('../Application/hotelUseCases/putHotelUseCase');
 
 // Routes and Controller
-const hotelRoutes = require('./Infrastructure/Routes/hotelRoutes');
+const hotelRoutes = require('./Routes/hotelRoutes');
 const HotelController = require('./hotelController');
 
 // Handlers
-const CreateHotelHandler = require('./Infrastructure/handlers/createHotelHandler');
-const GetHotelsHandler = require('./Infrastructure/handlers/getHotelsHandler');
-const DeleteHotelHandler = require('./Infrastructure/handlers/deleteHotelHandler');
-const GetHotelByIdHandler = require('./Infrastructure/handlers/getHotelByIdHandler');
-const PutHotelHandler = require('./Infrastructure/handlers/putHotelHandler');
-const GetHotelByNombreHandler = require('./Infrastructure/handlers/getHotelByNombreHandler');
-const GetHotelByDireccionHandler = require('./Infrastructure/handlers/getHotelByDireccionHandler');
-const GetHotelByEmailHandler = require('./Infrastructure/handlers/getHotelByEmailHandler');
-const GetHotelByTelefonoHandler = require('./Infrastructure/handlers/getHotelByTelefonoHandler');
-const GetHotelsByActivoHandler = require('./Infrastructure/handlers/getHotelsByActivoHandler');
+const CreateHotelHandler = require('./handlers/createHotelHandler');
+const GetHotelsHandler = require('./handlers/getHotelsHandler');
+const DeleteHotelHandler = require('./handlers/deleteHotelHandler');
+const GetHotelByIdHandler = require('./handlers/getHotelByIdHandler');
+const PutHotelHandler = require('./handlers/putHotelHandler');
+const GetHotelByNombreHandler = require('./handlers/getHotelByNombreHandler');
+const GetHotelByDireccionHandler = require('./handlers/getHotelByDireccionHandler');
+const GetHotelByEmailHandler = require('./handlers/getHotelByEmailHandler');
+const GetHotelByTelefonoHandler = require('./handlers/getHotelByTelefonoHandler');
+const GetHotelsByActivoHandler = require('./handlers/getHotelsByActivoHandler');
 
 
 function init_hotels(app) {
