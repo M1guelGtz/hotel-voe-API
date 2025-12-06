@@ -3,10 +3,10 @@ class GetHotelByNombreUseCase {
         this.hotelRepository = hotelRepository;
     }
 
-    async execute(id) {
-        const hotel = await this.hotelRepository.getHotelsById(id);
+    async execute(nombre) {
+        const hotel = await this.hotelRepository.getHotelsByNombre(nombre);
         if (!hotel) {
-            const err = new Error(`Hotel with ID ${id} not found`);
+            const err = new Error(`Hotel with nombre ${nombre} not found`);
             err.statusCode = 404;
             throw err;
         }

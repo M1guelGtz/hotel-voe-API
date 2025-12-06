@@ -3,17 +3,21 @@ class GetHotelByEmailUseCase {
         this.hotelRepository = hotelRepository;
     }
 
-    async execute(id) {
-        const hotel = await this.hotelRepository.getHotelsById(id);
+    async execute(email) {
+        const hotel = await this.hotelRepository.getHotelsByEmail(email);
         if (!hotel) {
-            const err = new Error(`Hotel with ID ${id} not found`);
+            const err = new Error(`Hotel with email ${email} not found`);
             err.statusCode = 404;
             throw err;
         }
 
+        /*
+
         if (typeof hotel.getAll === 'function') {
             return { hotel: hotel.getAll() };
         }
+
+        */
 
         return { hotel };
     }
