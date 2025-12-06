@@ -94,7 +94,7 @@ class MySQL {
         }
     }
     async registerUser(user) {
-        const query = 'INSERT INTO usuario (username, password) VALUES (?, ?)';
+        const query = 'INSERT INTO usuario (username, password, id_persona) VALUES (?, ?, 1)';
         try {
             // Hash password before saving
             const saltRounds = 10;
