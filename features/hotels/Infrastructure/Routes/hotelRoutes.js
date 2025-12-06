@@ -1,13 +1,15 @@
 const express = require('express');
+const authMiddleware = require('../../../../core/middleware/authMiddleware');
 
 module.exports = function hotelRoutes(controller) {
     const router = express.Router();
 
+    
+    router.use(authMiddleware);
     // Collection
     router.get('/', (req, res) => controller.getHotels(req, res));
     // Active hotels
     router.get('/activos', (req, res) => controller.getHotelsByActivo(req, res));
-
     // Field searches (specific routes must come before the ':id' route)
     router.get('/nombre/:nombre', (req, res) => controller.getHotelByNombre(req, res));
     router.get('/direccion/:direccion', (req, res) => controller.getHotelByDireccion(req, res));
