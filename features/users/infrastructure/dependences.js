@@ -32,7 +32,7 @@ function init_users(app) {
     }
 
     //use cases
-    const createUserUseCase = new CreateUserUseCase(repository);
+    //const createUserUseCase = new CreateUserUseCase(repository);
     const getUsersUseCase = new GetUsersUseCase(repository);
     const deleteUserUsecase = new DeleteUserUseCase({ userRepository: repository });
     const getUserByIdUsecase = new GetUsersByIdUseCase({ userRepository: repository });
@@ -42,7 +42,7 @@ function init_users(app) {
     const registerUserUseCase = new RegisterUserUseCase(repository);
 
     //handlers
-    const createUserController = new CreateUserController(createUserUseCase);
+    //const createUserController = new CreateUserController(createUserUseCase);
     const getUsersController = new GetUsersController(getUsersUseCase);
     const deleteUserController = new DeleteUserHandler(deleteUserUsecase);
     const getUserByIdController = new GetUserByIDHandler(getUserByIdUsecase);
@@ -52,7 +52,15 @@ function init_users(app) {
     const loginUserController = new LoginHandler(loginUserUsecase);
 
     //controlador
-    const userController = new UserController(createUserController, getUsersController, deleteUserController, getUserByIdController, putUserController, getUserByEmailController, registerUserController, loginUserController);
+    const userController = new UserController(
+        getUsersController,
+        deleteUserController,
+        getUserByIdController,
+        putUserController,
+        getUserByEmailController,
+        registerUserController,
+        loginUserController
+    );
 
     const routes = productRoutes(userController);
     app.use('/users', routes);
