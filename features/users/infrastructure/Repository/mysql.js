@@ -8,6 +8,8 @@ class MySQL {
 
     // Save a product (name, price)
     // Save a user (user object with name, email)
+
+    /*
     async postUsers(user) {
         const query = 'INSERT INTO usuario (username, password, id_persona) VALUES (?, ?, 1)';
         try {
@@ -29,6 +31,9 @@ class MySQL {
             throw new Error('Error executing insert: ' + err.message);
         }
     }
+
+
+    */
     // Get all products
     async getUsers() {
         const query = 'SELECT * FROM usuario';

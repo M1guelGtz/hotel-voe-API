@@ -1,6 +1,6 @@
 class UserController {
     constructor(createController, getController, deleteController, getByIdController, putController,getByEmailController, registerController , loginController) {
-        this.createController = createController;
+        //this.createController = createController;
         this.getController = getController;
         this.putController = putController;
         this.deleteController = deleteController;
@@ -10,11 +10,16 @@ class UserController {
         this.registerController = registerController;
     }
 
+
+    /*
+
     createUser(req, res) {
         const userData = req.body;
         // delegate to handler's HTTP interface
         return this.createController.handle(req, res);
     }
+
+    */
 
     getUsers(req, res) {
         return this.getController.handle(req, res);

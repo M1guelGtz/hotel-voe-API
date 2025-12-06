@@ -7,7 +7,7 @@ module.exports = function productRoutes(controller) {
     router.get('/:id', (req, res) => controller.getUsersById(req, res));
     router.get('/email/:email', (req, res) => controller.getUserByEmail(req, res));
 
-    router.post('/', (req, res) => controller.createUser(req, res));
+    //router.post('/', (req, res) => controller.createUser(req, res));
     router.post('/auth/login', (req, res) => controller.loginUser(req, res));
     router.post('/auth/register', (req, res) => controller.registerUser(req, res));
     
