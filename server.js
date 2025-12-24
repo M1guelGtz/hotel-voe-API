@@ -3,7 +3,7 @@ const app = express();
 const db = require('./core/db');
 const corsMiddleware = require('./core/middleware/cors');
 const { init_users } = require('./features/users/infrastructure/dependences'); // Composition root: wire infrastructure -> application -> delivery
-const { init_hotels } = require('./features/hotels/Infrastructure/dependences');
+const { init_hotels } = require('./features/hotels/Infrastructure/dependences');git
 
 const port = process.env.PORT || 3000;
 
