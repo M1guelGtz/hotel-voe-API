@@ -12,6 +12,8 @@ module.exports = function habitacionRoutes(controller) {
     router.get('/piso/:pisoID', (req, res) => controller.getHabitacionesByPisoId(req, res));
     router.get('/numero/:numero', (req, res) => controller.getHabitacionByNumero(req, res));
     router.get('/tipo/:tipo', (req, res) => controller.getHabitacionByTipo(req, res));
+    router.get('/capacidad/:capacidad', (req, res) => controller.getHabitacionByCapacidad(req, res));
+    router.get('/precio', (req, res) => controller.getHabitacionByPrecioNoche(req, res));
     router.put('/:id', (req, res) => controller.putHabitacion(req, res));
     router.delete('/:id', (req, res) => controller.deleteHabitacion(req, res));
 

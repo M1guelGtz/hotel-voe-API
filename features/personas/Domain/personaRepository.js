@@ -1,5 +1,5 @@
-class HabitacionRepository {
-    async create(habitacion) {
+class PersonaRepository {
+    async create(persona) {
         throw new Error('Method not implemented');
     }
 
@@ -7,41 +7,37 @@ class HabitacionRepository {
         throw new Error('Method not implemented');
     }
 
-    async getById(habitacionID) {
+    async getById(personaID) {
         throw new Error('Method not implemented');
     }
 
-    async getByPisoId(pisoID) {
+    async getByNombreApellido(nombre, apellidoPaterno) {
         throw new Error('Method not implemented');
     }
 
-    async getByNumero(numero) {
+    async getByApellidoMaterno(apellidoMaterno) {
         throw new Error('Method not implemented');
     }
 
-    async getByTipo(tipo) {
+    async getByFechaNacimiento(fechaNacimiento) {
         throw new Error('Method not implemented');
     }
 
-    async getByCapacidad(capacidad) {
+    async getByTelefono(telefono) {
         throw new Error('Method not implemented');
     }
 
-    async getByPrecioNoche(precioNoche) {
+    async getByDireccion(direccion) {
         throw new Error('Method not implemented');
     }
 
-    async getByActivo(activo) {
+    async update(personaID, persona) {
         throw new Error('Method not implemented');
     }
 
-    async update(habitacionID, habitacion) {
-        throw new Error('Method not implemented');
-    }
-
-    async delete(habitacionID) {
+    async delete(personaID) {
         throw new Error('Method not implemented');
     }
 }
 
-module.exports = HabitacionRepository;
+module.exports = PersonaRepository;
