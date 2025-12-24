@@ -3,7 +3,8 @@ const app = express();
 const db = require('./core/db');
 const corsMiddleware = require('./core/middleware/cors');
 const { init_users } = require('./features/users/infrastructure/dependences'); // Composition root: wire infrastructure -> application -> delivery
-const { init_hotels } = require('./features/hotels/Infrastructure/dependences');git
+const { init_hotels } = require('./features/hotels/Infrastructure/dependences');
+const { init_pisos } = require('./features/piso/Infrastructure/dependences');
 
 const port = process.env.PORT || 3000;
 
@@ -31,6 +32,7 @@ process.on('uncaughtException', (err) => {
         //Aqui se añaden la inicializacion de los features
         init_users(app);
         init_hotels(app)
+        init_pisos(app)
 
         // health endpoint
         app.get('/health', async (req, res) => {

@@ -1,15 +1,19 @@
 const express = require('express');
-const router = express.Router();
-const { pisoController } = require('../dependences');
+const authMiddleware = require('../../../../core/middleware/authMiddleware');
 
-router.post('/', (req, res) => pisoController.createPiso(req, res));
-router.get('/', (req, res) => pisoController.getPisos(req, res));
-router.get('/activo', (req, res) => pisoController.getPisosByActivo(req, res));
-router.get('/:id', (req, res) => pisoController.getPisoById(req, res));
-router.get('/hotel/:hotelID', (req, res) => pisoController.getPisosByHotelId(req, res));
-router.get('/numero/:numero', (req, res) => pisoController.getPisoByNumero(req, res));
-router.get('/nombre/:nombre', (req, res) => pisoController.getPisoByNombre(req, res));
-router.put('/:id', (req, res) => pisoController.putPiso(req, res));
-router.delete('/:id', (req, res) => pisoController.deletePiso(req, res));
+module.exports = function pisoRoutes(controller) {
+    const router = express.Router();
 
-module.exports = router;
+    router.use(authMiddleware);
+    router.post('/', (req, res) => controller.createPiso(req, res));
+    router.get('/', (req, res) => controller.getPisos(req, res));
+    router.get('/activo', (req, res) => controller.getPisosByActivo(req, res));
+    router.get('/:id', (req, res) => controller.getPisoById(req, res));
+    router.get('/hotel/:hotelID', (req, res) => controller.getPisosByHotelId(req, res));
+    router.get('/numero/:numero', (req, res) => controller.getPisoByNumero(req, res));
+    router.get('/nombre/:nombre', (req, res) => controller.getPisoByNombre(req, res));
+    router.put('/:id', (req, res) => controller.putPiso(req, res));
+    router.delete('/:id', (req, res) => controller.deletePiso(req, res));
+
+    return router;
+};
