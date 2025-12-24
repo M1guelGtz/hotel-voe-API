@@ -8,6 +8,8 @@ class HabitacionController {
         getHabitacionesByPisoIdHandler,
         getHabitacionByNumeroHandler,
         getHabitacionByTipoHandler,
+        getHabitacionByCapacidadHandler,
+        getHabitacionByPrecioNocheHandler,
         getHabitacionesByActivoHandler
     ) {
         this.createHabitacion = createHabitacionHandler.handle.bind(createHabitacionHandler);
@@ -18,6 +20,8 @@ class HabitacionController {
         this.getHabitacionesByPisoId = getHabitacionesByPisoIdHandler.handle.bind(getHabitacionesByPisoIdHandler);
         this.getHabitacionByNumero = getHabitacionByNumeroHandler.handle.bind(getHabitacionByNumeroHandler);
         this.getHabitacionByTipo = getHabitacionByTipoHandler.handle.bind(getHabitacionByTipoHandler);
+        this.getHabitacionByCapacidad = getHabitacionByCapacidadHandler.handle.bind(getHabitacionByCapacidadHandler);
+        this.getHabitacionByPrecioNoche = getHabitacionByPrecioNocheHandler.handle.bind(getHabitacionByPrecioNocheHandler);
         this.getHabitacionesByActivo = getHabitacionesByActivoHandler.handle.bind(getHabitacionesByActivoHandler);
     }
 }

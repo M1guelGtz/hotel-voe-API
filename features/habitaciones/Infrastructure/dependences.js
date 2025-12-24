@@ -7,6 +7,8 @@ const GetHabitacionByIdUseCase = require('../Application/habitacionUseCases/getH
 const GetHabitacionesByPisoIdUseCase = require('../Application/habitacionUseCases/getHabitacionesByPisoIdUseCase');
 const GetHabitacionByNumeroUseCase = require('../Application/habitacionUseCases/getHabitacionByNumeroUseCase');
 const GetHabitacionByTipoUseCase = require('../Application/habitacionUseCases/getHabitacionByTipoUseCase');
+const GetHabitacionByCapacidadUseCase = require('../Application/habitacionUseCases/getHabitacionByCapacidadUseCase');
+const GetHabitacionByPrecioNocheUseCase = require('../Application/habitacionUseCases/getHabitacionByPrecioNocheUseCase');
 const DeleteHabitacionUseCase = require('../Application/habitacionUseCases/deleteHabitacionUseCase');
 const PutHabitacionUseCase = require('../Application/habitacionUseCases/putHabitacionUseCase');
 // Handlers
@@ -18,6 +20,8 @@ const PutHabitacionHandler = require('./handlers/putHabitacionHandler');
 const GetHabitacionesByPisoIdHandler = require('./handlers/getHabitacionesByPisoIdHandler');
 const GetHabitacionByNumeroHandler = require('./handlers/getHabitacionByNumeroHandler');
 const GetHabitacionByTipoHandler = require('./handlers/getHabitacionByTipoHandler');
+const GetHabitacionByCapacidadHandler = require('./handlers/getHabitacionByCapacidadHandler');
+const GetHabitacionByPrecioNocheHandler = require('./handlers/getHabitacionByPrecioNocheHandler');
 const GetHabitacionesByActivoHandler = require('./handlers/getHabitacionesByActivoHandler');
 const HabitacionController = require('./habitacionController');
 const habitacionRoutes = require('./Routes/habitacionRoutes');
@@ -32,6 +36,8 @@ function init_habitaciones(app) {
     const getHabitacionesByPisoIdUseCase = new GetHabitacionesByPisoIdUseCase({ habitacionRepository: repository });
     const getHabitacionByNumeroUseCase = new GetHabitacionByNumeroUseCase({ habitacionRepository: repository });
     const getHabitacionByTipoUseCase = new GetHabitacionByTipoUseCase({ habitacionRepository: repository });
+    const getHabitacionByCapacidadUseCase = new GetHabitacionByCapacidadUseCase({ habitacionRepository: repository });
+    const getHabitacionByPrecioNocheUseCase = new GetHabitacionByPrecioNocheUseCase({ habitacionRepository: repository });
     const deleteHabitacionUseCase = new DeleteHabitacionUseCase({ habitacionRepository: repository });
     const putHabitacionUseCase = new PutHabitacionUseCase({ habitacionRepository: repository });
     // Handlers
@@ -43,6 +49,8 @@ function init_habitaciones(app) {
     const getHabitacionesByPisoIdHandler = new GetHabitacionesByPisoIdHandler(getHabitacionesByPisoIdUseCase);
     const getHabitacionByNumeroHandler = new GetHabitacionByNumeroHandler(getHabitacionByNumeroUseCase);
     const getHabitacionByTipoHandler = new GetHabitacionByTipoHandler(getHabitacionByTipoUseCase);
+    const getHabitacionByCapacidadHandler = new GetHabitacionByCapacidadHandler(getHabitacionByCapacidadUseCase);
+    const getHabitacionByPrecioNocheHandler = new GetHabitacionByPrecioNocheHandler(getHabitacionByPrecioNocheUseCase);
     const getHabitacionesByActivoHandler = new GetHabitacionesByActivoHandler(getHabitacionesByActivoUseCase);
     // Controller
     const habitacionController = new HabitacionController(
@@ -54,6 +62,8 @@ function init_habitaciones(app) {
         getHabitacionesByPisoIdHandler,
         getHabitacionByNumeroHandler,
         getHabitacionByTipoHandler,
+        getHabitacionByCapacidadHandler,
+        getHabitacionByPrecioNocheHandler,
         getHabitacionesByActivoHandler
     );
 

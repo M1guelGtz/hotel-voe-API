@@ -43,6 +43,18 @@ class MySQLHabitacionAdapter extends HabitacionRepository {
         return await this.executeQuery(query, values);
     }
 
+    async getByCapacidad(capacidad) {
+        const query = 'SELECT * FROM Habitacion WHERE capacidad = ?';
+        const values = [capacidad];
+        return await this.executeQuery(query, values);
+    }
+
+    async getByPrecioNoche(precioNoche) {
+        const query = 'SELECT * FROM Habitacion WHERE precioNoche = ?';
+        const values = [precioNoche];
+        return await this.executeQuery(query, values);
+    }
+
     async getByActivo(activo) {
         const query = 'SELECT * FROM Habitacion WHERE activo = ?';
         const values = [activo];

@@ -6,6 +6,7 @@ const { init_users } = require('./features/users/infrastructure/dependences'); /
 const { init_hotels } = require('./features/hotels/Infrastructure/dependences');
 const { init_pisos } = require('./features/piso/Infrastructure/dependences');
 const { init_habitaciones } = require('./features/habitaciones/Infrastructure/dependences');
+const { init_personas } = require('./features/personas/Infrastructure/dependences');
 
 const port = process.env.PORT || 3000;
 
@@ -35,6 +36,7 @@ process.on('uncaughtException', (err) => {
         init_hotels(app)
         init_pisos(app)
         init_habitaciones(app)
+        init_personas(app)
 
         // health endpoint
         app.get('/health', async (req, res) => {
