@@ -20,6 +20,7 @@ const GetPisoByNumeroHandler = require('./handlers/getPisoByNumeroHandler');
 const GetPisoByNombreHandler = require('./handlers/getPisoByNombreHandler');
 const GetPisosByActivoHandler = require('./handlers/getPisosByActivoHandler');
 const PisoController = require('./pisoController');
+const pisoRoutes = require('./Routes/pisoRoutes');
 
 function init_pisos(app) {
     let repository = new MySQLPisoAdapter();
@@ -55,7 +56,9 @@ function init_pisos(app) {
         getPisoByNombreHandler,
         getPisosByActivoHandler
     );
-    return { pisoController };
+
+	const routes = pisoRoutes(pisoController);
+	app.use('/pisos', routes);
 }
 
 module.exports = { init_pisos };
