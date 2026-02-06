@@ -16,7 +16,7 @@ const GetUserByIDHandler = require('./handlers/getUserByIDHandler');
 const PutUserHandler = require('./handlers/putUserHandler');
 const GetUserByEmailHandler = require('./handlers/getUserByEmailHandler');
 const RegisterHandler = require('./handlers/registerhandler');
-const LoginHandler = require('./handlers/loginhandler');
+const LoginHandler = require('./handlers/loginHandler');
 
 
 function init_users(app) {

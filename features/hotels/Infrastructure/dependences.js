@@ -33,7 +33,7 @@ function init_hotels(app) {
 	let repository;
 	const useInMemory = process.env.USE_IN_MEMORY === 'true' || process.env.NODE_ENV === 'test';
 	if (useInMemory) {
-		const InMemory = require('./Infrastructure/Repository/inMemory');
+		const InMemory = require('./Repository/inMemory');
 		repository = new InMemory();
 		console.log('Using InMemory hotel repository');
 	} else {
