@@ -5,6 +5,12 @@ class CreateHabitacionUseCase {
         this.habitacionRepository = habitacionRepository;
     }
 
+    execute(habitacion) {
+        return this.habitacionRepository.createHabitacion(habitacion);
+    }
+}
+
+module.exports = CreateHabitacionUseCase;
     async execute(habitacionData) {
         const habitacion = new Habitacion(null, habitacionData.pisoID, habitacionData.numero, habitacionData.tipo, habitacionData.capacidad, habitacionData.precioNoche, habitacionData.activo);
         return await this.habitacionRepository.create(habitacion);
