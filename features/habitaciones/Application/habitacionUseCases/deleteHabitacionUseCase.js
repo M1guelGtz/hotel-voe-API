@@ -3,9 +3,11 @@ class DeleteHabitacionUseCase {
         this.habitacionRepository = habitacionRepository;
     }
 
+
     async execute(habitacionID) {
         return await this.habitacionRepository.delete(habitacionID);
     }
 }
 
 module.exports = DeleteHabitacionUseCase;
+
