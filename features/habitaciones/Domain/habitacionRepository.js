@@ -1,38 +1,46 @@
 class HabitacionRepository {
-    async createHabitacion(habitacion) {
-        throw new Error('createHabitacion method must be implemented');
+    async create(habitacion) {
+        throw new Error('Method not implemented');
     }
 
-    async getHabitaciones() {
-        throw new Error('getHabitaciones method must be implemented');
+    async getAll() {
+        throw new Error('Method not implemented');
     }
 
-    async getHabitacionById(id) {
-        throw new Error('getHabitacionById method must be implemented');
+    async getById(habitacionID) {
+        throw new Error('Method not implemented');
     }
 
-    async getHabitacionesByPiso(pisoID) {
-        throw new Error('getHabitacionesByPiso method must be implemented');
+    async getByPisoId(pisoID) {
+        throw new Error('Method not implemented');
     }
 
-    async getHabitacionesByTipo(tipo) {
-        throw new Error('getHabitacionesByTipo method must be implemented');
+    async getByNumero(numero) {
+        throw new Error('Method not implemented');
     }
 
-    async getHabitacionesByActivo() {
-        throw new Error('getHabitacionesByActivo method must be implemented');
+    async getByTipo(tipo) {
+        throw new Error('Method not implemented');
     }
 
-    async updateHabitacion(id, habitacionData) {
-        throw new Error('updateHabitacion method must be implemented');
+    async getByCapacidad(capacidad) {
+        throw new Error('Method not implemented');
     }
 
-    async deleteHabitacion(id) {
-        throw new Error('deleteHabitacion method must be implemented');
+    async getByPrecioNoche(precioNoche) {
+        throw new Error('Method not implemented');
     }
 
-    async getHabitacionByNumero(numero) {
-        throw new Error('getHabitacionByNumero method must be implemented');
+    async getByActivo(activo) {
+        throw new Error('Method not implemented');
+    }
+
+    async update(habitacionID, habitacion) {
+        throw new Error('Method not implemented');
+    }
+
+    async delete(habitacionID) {
+        throw new Error('Method not implemented');
     }
 }
 

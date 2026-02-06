@@ -3,8 +3,8 @@ class GetHabitacionesUseCase {
         this.habitacionRepository = habitacionRepository;
     }
 
-    execute() {
-        return this.habitacionRepository.getHabitaciones();
+    async execute() {
+        return await this.habitacionRepository.getAll();
     }
 }
 

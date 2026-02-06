@@ -3,8 +3,8 @@ class GetHabitacionByIdUseCase {
         this.habitacionRepository = habitacionRepository;
     }
 
-    execute(id) {
-        return this.habitacionRepository.getHabitacionById(id);
+    async execute(habitacionID) {
+        return await this.habitacionRepository.getById(habitacionID);
     }
 }
 

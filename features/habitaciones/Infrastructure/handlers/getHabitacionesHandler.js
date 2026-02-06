@@ -3,8 +3,13 @@ class GetHabitacionesHandler {
         this.getHabitacionesUseCase = getHabitacionesUseCase;
     }
 
-    async handle() {
-        return await this.getHabitacionesUseCase.execute();
+    async handle(req, res) {
+        try {
+            const habitaciones = await this.getHabitacionesUseCase.execute();
+            res.status(200).json(habitaciones);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
     }
 }
 
