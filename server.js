@@ -4,10 +4,10 @@ const db = require('./core/db');
 const corsMiddleware = require('./core/middleware/cors');
 const { init_users } = require('./features/users/infrastructure/dependences'); // Composition root: wire infrastructure -> application -> delivery
 const { init_hotels } = require('./features/hotels/Infrastructure/dependences');
-const { init_pisos } = require('./features/piso/Infrastructure/dependences');
-const { init_habitaciones } = require('./features/habitaciones/Infrastructure/dependences');
-const { init_personas } = require('./features/personas/Infrastructure/dependences');
-const { init_huespeds } = require('./features/huespeds/Infrastructure/dependences');
+// const { init_pisos } = require('./features/piso/Infrastructure/dependences'); // TODO: Crear feature
+// const { init_habitaciones } = require('./features/habitaciones/Infrastructure/dependences'); // TODO: Crear feature
+// const { init_personas } = require('./features/personas/Infrastructure/dependences'); // TODO: Crear feature
+// const { init_huespeds } = require('./features/huespeds/Infrastructure/dependences'); // TODO: Crear feature
 
 const port = process.env.PORT || 3000;
 
@@ -34,11 +34,11 @@ process.on('uncaughtException', (err) => {
 
         //Aqui se añaden la inicializacion de los features
         init_users(app);
-        init_hotels(app)
-        init_pisos(app)
-        init_habitaciones(app)
-        init_personas(app)
-        init_huespeds(app)
+        init_hotels(app);
+        // init_pisos(app); // TODO: Descomentar cuando el feature esté implementado
+            // init_habitaciones(app); // TODO: Descomentar cuando el feature esté implementado
+            // init_personas(app); // TODO: Descomentar cuando el feature esté implementado
+            // init_huespeds(app); // TODO: Descomentar cuando el feature esté implementado
 
         // health endpoint
         app.get('/health', async (req, res) => {
