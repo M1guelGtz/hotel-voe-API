@@ -36,7 +36,7 @@ class MySQL {
     */
     // Get all products
     async getUsers() {
-        const query = 'SELECT * FROM User';
+        const query = 'SELECT * FROM `User`';
         try {
             const rows = await db.fetchRows(query);
             return rows;
@@ -45,7 +45,7 @@ class MySQL {
         }
     }
     async putUsers(id, userData) {
-        const query = 'UPDATE User SET password = ?, username = ? WHERE id_usuario = ?';
+        const query = 'UPDATE `User` SET password = ?, username = ? WHERE userID = ?';
         try {
             // Hash password if provided
             let passwordToSave = userData.password;
@@ -59,7 +59,7 @@ class MySQL {
         }
     }
     async deleteUsers(id) {
-        const query = 'DELETE FROM User WHERE userID = ?';
+        const query = 'DELETE FROM `User` WHERE userID = ?';
         try {
             const rows = await db.fetchRows(query, [id]);
             return rows;
@@ -68,7 +68,7 @@ class MySQL {
         }
     }
     async getUsersById(id) {
-        const query = 'SELECT * FROM User WHERE userID = ?';
+        const query = 'SELECT * FROM `User` WHERE userID = ?';
         try {
             const rows = await db.executePreparedQuery(query, [id]);
             return rows[0]; // Assuming id is unique, return the first match
@@ -77,7 +77,7 @@ class MySQL {
         }
     }
     async getUserByEmail(email) {
-        const query = 'SELECT * FROM User WHERE email = ?';
+        const query = 'SELECT * FROM `User` WHERE email = ?';
         try {
             const rows = await db.executePreparedQuery(query, [email]);
             return rows[0]; // Assuming email is unique, return the first match
@@ -86,7 +86,7 @@ class MySQL {
         }
     }
     async loginUser(email, password) {
-        const query = 'SELECT * FROM User WHERE email = ?';
+        const query = 'SELECT * FROM `User` WHERE email = ?';
         try {
             const rows = await db.executePreparedQuery(query, [email]);
             const user = rows && rows[0];
@@ -99,7 +99,7 @@ class MySQL {
         }
     }
     async registerUser(user) {
-        const query = 'INSERT INTO User (personaID, hotelID, email, password, username, rol, activo) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO `User` (personaID, hotelID, email, password, username, rol, activo) VALUES (?, ?, ?, ?, ?, ?, ?)';
         try {
             // Hash password before saving
             const saltRounds = 10;
