@@ -4,102 +4,25 @@ class HabitacionController {
         getHabitacionesHandler,
         deleteHabitacionHandler,
         getHabitacionByIdHandler,
-        updateHabitacionHandler,
-        getHabitacionesByPisoHandler,
-        getHabitacionesByTipoHandler,
-        getHabitacionesByActivoHandler,
-        getHabitacionByNumeroHandler
+        putHabitacionHandler,
+        getHabitacionesByPisoIdHandler,
+        getHabitacionByNumeroHandler,
+        getHabitacionByTipoHandler,
+        getHabitacionByCapacidadHandler,
+        getHabitacionByPrecioNocheHandler,
+        getHabitacionesByActivoHandler
     ) {
-        this.createHabitacionHandler = createHabitacionHandler;
-        this.getHabitacionesHandler = getHabitacionesHandler;
-        this.deleteHabitacionHandler = deleteHabitacionHandler;
-        this.getHabitacionByIdHandler = getHabitacionByIdHandler;
-        this.updateHabitacionHandler = updateHabitacionHandler;
-        this.getHabitacionesByPisoHandler = getHabitacionesByPisoHandler;
-        this.getHabitacionesByTipoHandler = getHabitacionesByTipoHandler;
-        this.getHabitacionesByActivoHandler = getHabitacionesByActivoHandler;
-        this.getHabitacionByNumeroHandler = getHabitacionByNumeroHandler;
-    }
-
-    async createHabitacion(req, res) {
-        try {
-            const result = await this.createHabitacionHandler.handle(req.body);
-            res.status(201).json(result);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    }
-
-    async getHabitaciones(req, res) {
-        try {
-            const result = await this.getHabitacionesHandler.handle();
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
-
-    async deleteHabitacion(req, res) {
-        try {
-            const result = await this.deleteHabitacionHandler.handle(req.params.id);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    }
-
-    async getHabitacionById(req, res) {
-        try {
-            const result = await this.getHabitacionByIdHandler.handle(req.params.id);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    }
-
-    async updateHabitacion(req, res) {
-        try {
-            const result = await this.updateHabitacionHandler.handle(req.params.id, req.body);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    }
-
-    async getHabitacionesByPiso(req, res) {
-        try {
-            const result = await this.getHabitacionesByPisoHandler.handle(req.params.pisoID);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    }
-
-    async getHabitacionesByTipo(req, res) {
-        try {
-            const result = await this.getHabitacionesByTipoHandler.handle(req.params.tipo);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    }
-
-    async getHabitacionesByActivo(req, res) {
-        try {
-            const result = await this.getHabitacionesByActivoHandler.handle();
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
-
-    async getHabitacionByNumero(req, res) {
-        try {
-            const result = await this.getHabitacionByNumeroHandler.handle(req.params.numero);
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
+        this.createHabitacion = createHabitacionHandler.handle.bind(createHabitacionHandler);
+        this.getHabitaciones = getHabitacionesHandler.handle.bind(getHabitacionesHandler);
+        this.deleteHabitacion = deleteHabitacionHandler.handle.bind(deleteHabitacionHandler);
+        this.getHabitacionById = getHabitacionByIdHandler.handle.bind(getHabitacionByIdHandler);
+        this.putHabitacion = putHabitacionHandler.handle.bind(putHabitacionHandler);
+        this.getHabitacionesByPisoId = getHabitacionesByPisoIdHandler.handle.bind(getHabitacionesByPisoIdHandler);
+        this.getHabitacionByNumero = getHabitacionByNumeroHandler.handle.bind(getHabitacionByNumeroHandler);
+        this.getHabitacionByTipo = getHabitacionByTipoHandler.handle.bind(getHabitacionByTipoHandler);
+        this.getHabitacionByCapacidad = getHabitacionByCapacidadHandler.handle.bind(getHabitacionByCapacidadHandler);
+        this.getHabitacionByPrecioNoche = getHabitacionByPrecioNocheHandler.handle.bind(getHabitacionByPrecioNocheHandler);
+        this.getHabitacionesByActivo = getHabitacionesByActivoHandler.handle.bind(getHabitacionesByActivoHandler);
     }
 }
 

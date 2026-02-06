@@ -3,8 +3,14 @@ class DeleteHabitacionHandler {
         this.deleteHabitacionUseCase = deleteHabitacionUseCase;
     }
 
-    async handle(id) {
-        return await this.deleteHabitacionUseCase.execute(id);
+    async handle(req, res) {
+        try {
+            const { id } = req.params;
+            await this.deleteHabitacionUseCase.execute(id);
+            res.status(200).json({ message: 'Habitacion deleted' });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
     }
 }
 

@@ -1,13 +1,5 @@
 class Habitacion {
-    habitacionID;
-    pisoID;
-    numero;
-    tipo;
-    capacidad;
-    precioNoche;
-    activo;
-
-    constructor({ habitacionID, pisoID, numero, tipo, capacidad, precioNoche, activo = true }) {
+    constructor(habitacionID, pisoID, numero, tipo, capacidad, precioNoche, activo) {
         this.habitacionID = habitacionID;
         this.pisoID = pisoID;
         this.numero = numero;
