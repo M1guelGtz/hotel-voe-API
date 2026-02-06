@@ -5,11 +5,11 @@ dotenv.config();
 
 // Create a connection pool using environment variables (fall back to sensible defaults)
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || '127.0.0.1',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASS || '',
-  database: process.env.DB_SCHEMA || '',
-  port: parseInt(process.env.DB_PORT || '8080', 10),
+  host: process.env.DB_HOST || '100.25.81.7',
+  user: process.env.DB_USER || 'Foodly',
+  password: process.env.DB_PASS || 'Passw0rd!2026',
+  database: process.env.DB_SCHEMA || 'vors_users',
+  port: parseInt(process.env.DB_PORT || '3306', 10),
   waitForConnections: true,
   connectionLimit: parseInt(process.env.DB_CONN_LIMIT || '10', 10),
   queueLimit: 0,
