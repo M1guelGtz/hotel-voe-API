@@ -23,7 +23,7 @@ class UserRepository {
         throw new Error('deleteUsers() not implemented');
     }
 
-    loginUser(email, password) {
+    loginUser(username, password) {
         throw new Error('loginUser() not implemented');
     } 
 

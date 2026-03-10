@@ -1,16 +1,22 @@
 class RegisterHandler {
-    constructor(createUserUseCase) {
-        this.createUserUseCase = createUserUseCase;
+    constructor(registerUserUseCase) {
+        this.registerUserUseCase = registerUserUseCase;
     }
 
     async handle(req, res) {
+        const { name, username, password, role_id } = req.body;
+
+        // Validar que vengan campos requeridos
+        if (!name || !username || !password) {
+            return res.status(400).json({ message: 'Los campos name, username y password son requeridos' });
+        }
+
         try {
-            const userData = req.body;
-            const newUser = await this.createUserUseCase.execute(userData);
-            res.status(201).json(newUser);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }   
+            const employee = await this.registerUserUseCase.execute(name, username, password, role_id || 1);
+            return res.status(201).json({ message: 'Usuario registrado exitosamente', employee });
+        } catch (err) {
+            return res.status(err.statusCode || 400).json({ message: err.message });
+        }
     }
 }
 

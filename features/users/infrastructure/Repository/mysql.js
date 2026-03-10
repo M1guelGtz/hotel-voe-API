@@ -85,33 +85,90 @@ class MySQL {
             throw new Error('Error fetching user by email: ' + err.message);
         }
     }
-    async loginUser(email, password) {
-        const query = 'SELECT * FROM `user` WHERE email = ?';
+    async registerUser(name, username, password, role_id = 1) {
         try {
-            const rows = await db.executePreparedQuery(query, [email]);
-            const user = rows && rows[0];
-            if (!user) return null;
-            const hashed = user.password;
-            const match = await bcrypt.compare(password, hashed);
-            return match ? user : null ;
+            // 1. Verificar que el username no esté tomado
+            const checkQuery = `
+                SELECT id FROM employees WHERE username = ?
+            `;
+            const existing = await db.executePreparedQuery(checkQuery, [username]);
+            if (existing && existing[0]) throw new Error('El username ya está en uso');
+
+            // 2. Verificar que el role_id exista (si se proporciona)
+            if (role_id) {
+                const roleQuery = `
+                    SELECT id FROM roles WHERE id = ?
+                `;
+                const role = await db.executePreparedQuery(roleQuery, [role_id]);
+                if (!role || !role[0]) throw new Error('El rol especificado no existe');
+            }
+
+            // 3. Hashear el password
+            const hashedPassword = await bcrypt.hash(password, 12);
+
+            // 4. Insertar el empleado
+            const insertQuery = `
+                INSERT INTO employees (role_id, name, username, password)
+                VALUES (?, ?, ?, ?)
+            `;
+            const result = await db.executePreparedQuery(insertQuery, [
+                role_id,
+                name,
+                username,
+                hashedPassword
+            ]);
+
+            // 5. Regresar el empleado creado sin el password
+            return {
+                id: result.insertId,
+                name,
+                username,
+                role_id,
+            };
+
         } catch (err) {
-            throw new Error('Error logging in user: ' + err.message);
+            throw new Error('Error al crear empleado: ' + err.message);
         }
     }
-    async registerUser(user) {
-        const query = 'INSERT INTO `user` (personaID, hotelID, email, password, username, rol, activo) VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+    async loginUser(username, password) {
+        const query = `
+            SELECT
+                e.id,
+                e.name,
+                e.username,
+                e.password,
+                e.is_active,
+                r.name   AS role,
+                a.id     AS area_id,
+                a.name   AS area_name,
+                a.icon   AS area_icon,
+                a.color  AS area_color
+            FROM employees e
+            JOIN roles r ON r.id = e.role_id
+            LEFT JOIN areas a ON a.role_id = e.role_id
+            WHERE e.username = ?
+        `;
         try {
-            // Hash password before saving
-            const saltRounds = 10;
-            const hashed = await bcrypt.hash(user.password, saltRounds);
-            const result = await db.executePreparedQuery(query, [user.personaID, user.hotelID, user.email, hashed, user.username, user.rol, user.activo]);
-            const insertId = result && (result.insertId || result.insert_id || result.affectedRows ? result.insertId : null);
-            if (insertId) {
-                return { id: insertId, name: user.name, email: user.email };
-            }
-            return result;
+            const rows = await db.executePreparedQuery(query, [username]);
+            const employee = rows && rows[0];
+
+            if (!employee) return null;
+            if (!employee.is_active) throw new Error('Usuario deshabilitado');
+
+            const hash = employee.password_hash || employee.password;
+            if (!hash) return null;
+
+            const match = await bcrypt.compare(password, hash);
+            if (!match) return null;
+
+            // No regresar el hash en la respuesta
+            delete employee.password;
+            delete employee.password_hash;
+            return employee;
+
         } catch (err) {
-            throw new Error('Error registering user: ' + err.message);
+            throw new Error('Error al iniciar sesión: ' + err.message);
         }
     }
 }

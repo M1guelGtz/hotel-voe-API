@@ -5,16 +5,16 @@ class LoginUserUseCase {
         this.userRepository = userRepository;
     }
     
-    async execute(email, password) {
-        const user = await this.userRepository.loginUser(email, password);
+    async execute(username, password) {
+        const user = await this.userRepository.loginUser(username, password);
         if (!user) {
-            const err = new Error('Invalid email or password');
+            const err = new Error('Usuario o contraseña inválidos');
             err.statusCode = 401;
             throw err;
         }
         const payload = {
             id: user.id_usuario || user.id,
-            email: user.email || user.username,
+            username: user.username,
         };
         const secret = process.env.JWT_SECRET || 'dev-secret';
         const token = jwt.sign(payload, secret, { expiresIn: '1h' });

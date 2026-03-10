@@ -4,10 +4,16 @@ class LoginHandler {
     }
     
     async handle (req, res) {
-        const { email, password } = req.body;
+        const { username, password } = req.body;
         try {
-            const {token, user} = await this.loginUseCase.execute(email, password);
-            res.status(200).json({ token, message: 'Login successful', userID: user.userID, userRol: user.rol });
+            const { token, user } = await this.loginUseCase.execute(username, password);
+            res.status(200).json({
+                token,
+                message: 'Login successful',
+                userID: user.id,
+                userRole: user.role,
+                user,
+            });
         } catch (error) {
             res.status(error.statusCode || 500).json({ message: error.message });
         }

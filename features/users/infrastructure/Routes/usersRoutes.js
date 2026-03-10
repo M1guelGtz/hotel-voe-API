@@ -7,6 +7,12 @@ module.exports = function productRoutes(controller) {
     // Public auth routes
     router.post('/auth/login', (req, res) => controller.loginUser(req, res));
     router.post('/auth/register', (req, res) => controller.registerUser(req, res));
+    router.post('/login', (req, res) => controller.loginUser(req, res));
+    router.post('/register', (req, res) => controller.registerUser(req, res));
+    router.options('/auth/login', (req, res) => res.sendStatus(200));
+    router.options('/auth/register', (req, res) => res.sendStatus(200));
+    router.options('/login', (req, res) => res.sendStatus(200));
+    router.options('/register', (req, res) => res.sendStatus(200));
 
     // Protected routes
     router.use(authMiddleware);

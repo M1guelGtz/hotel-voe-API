@@ -53,8 +53,8 @@ class InMemoryUserRepository {
     return null;
   }
 
-  async loginUser(email, password) {
-    const user = this.users.find(user => user.email === email);
+  async loginUser(username, password) {
+    const user = this.users.find(user => user.username === username || user.email === username);
     if (!user) return null;
     const match = await bcrypt.compare(password, user.password || '');
     return match ? user : null;
