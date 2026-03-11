@@ -81,12 +81,26 @@ class MySQL {
         }
     }
     async deleteUsers(id) {
-        const query = 'DELETE FROM `user` WHERE userID = ?';
         try {
-            const rows = await db.fetchRows(query, [id]);
-            return rows;
+            const checkQuery = `
+                SELECT id FROM employees WHERE id = ?
+            `;
+            const existing = await db.executePreparedQuery(checkQuery, [id]);
+            if (!existing || !existing[0]) {
+                const notFound = new Error('Empleado no encontrado');
+                notFound.statusCode = 404;
+                throw notFound;
+            }
+
+            const deleteQuery = `
+                UPDATE employees SET is_active = FALSE WHERE id = ?
+            `;
+            await db.executePreparedQuery(deleteQuery, [id]);
+
+            return { id: Number(id), is_active: false };
         } catch (err) {
-            throw new Error('Error fetching rows: ' + err.message);
+            if (err && err.statusCode) throw err;
+            throw new Error('Error al eliminar empleado: ' + err.message);
         }
     }
     async getEmployeeById(id) {

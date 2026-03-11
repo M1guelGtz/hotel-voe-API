@@ -6,10 +6,10 @@ class DeleteUserHandler {
     async handle(req, res) {
         const { id } = req.params;
         try {
-            await this.deleteUserUseCase.execute(id);
-            res.status(200).json({ message: `User with ID ${id} deleted successfully` });
+            const employee = await this.deleteUserUseCase.execute(id);
+            return res.status(200).json({ message: 'Empleado deshabilitado', employee });
         } catch (error) {
-            res.status(error.statusCode || 500).json({ message: error.message });
+            return res.status(error.statusCode || 500).json({ message: error.message });
         }
     }
 }
