@@ -9,11 +9,14 @@ const { init_habitaciones } = require('./features/habitaciones/Infrastructure/de
 const { init_personas } = require('./features/personas/Infrastructure/dependences');
 const { init_huespeds } = require('./features/huespeds/Infrastructure/dependences');
 const { init_dishes } = require('./features/dishes/Infrastructure/dependences');
+const path = require('path');
 
 const port = process.env.PORT || 3000;
 
 app.use(corsMiddleware);
-app.use(express.json()); 
+app.use(express.json());
+// Servir archivos estáticos desde la carpeta public
+app.use('/public', express.static(path.join(__dirname, 'public'))); 
 
 process.on('unhandledRejection', (reason, p) => {
     console.error('Unhandled Rejection at:', p, 'reason:', reason);

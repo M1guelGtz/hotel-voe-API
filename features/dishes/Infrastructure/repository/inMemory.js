@@ -4,12 +4,40 @@ class InMemoryDishRepository extends DishRepository {
 	constructor() {
 		super();
 		this.dishes = [];
-		this.nextId = 1;
+		this.products = [];
+		this.nextDishId = 1;
+		this.nextProductId = 1;
+		// Mock data for testing
+		this.areas = [{ id: 1, name: 'Test Area' }];
+		this.categories = [{ id: 1, name: 'Test Category' }];
+	}
+
+	async createProduct(productData) {
+		// Simulate area/category validation
+		const area = this.areas.find(a => a.id === productData.area_id);
+		if (!area) throw new Error('El área especificada no existe');
+
+		if (productData.category_id) {
+			const category = this.categories.find(c => c.id === productData.category_id);
+			if (!category) throw new Error('La categoría especificada no existe');
+		}
+
+		const newProduct = {
+			id: this.nextProductId++,
+			name: productData.name,
+			description: productData.description,
+			price: productData.price,
+			area_id: productData.area_id,
+			category_id: productData.category_id,
+			image_url: productData.image_url
+		};
+		this.products.push(newProduct);
+		return newProduct;
 	}
 
 	async postDish(dish) {
 		const newDish = {
-			dishID: this.nextId++,
+			dishID: this.nextDishId++,
 			nombre: dish.nombre,
 			descripcion: dish.descripcion,
 			precio: dish.precio,

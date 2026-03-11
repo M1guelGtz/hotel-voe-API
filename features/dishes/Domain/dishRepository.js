@@ -1,4 +1,8 @@
 class DishRepository {
+	async createProduct(productData) {
+		throw new Error('createProduct method must be implemented');
+	}
+
 	async postDish(dish) {
 		throw new Error('postDish method must be implemented');
 	}

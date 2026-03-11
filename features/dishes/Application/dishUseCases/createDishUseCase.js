@@ -1,36 +1,34 @@
-const Dish = require('../../Domain/dish');
-
 class CreateDishUseCase {
     constructor(dishRepository) {
         this.dishRepository = dishRepository;
     }
 
-    execute(dishData) {
-        if (!dishData || typeof dishData.nombre !== 'string' || dishData.nombre.trim() === '') {
-            const err = new Error('`nombre` is required and must be a non-empty string');
+    async execute(productData) {
+        if (!productData || typeof productData.name !== 'string' || productData.name.trim() === '') {
+            const err = new Error('name es requerido y debe ser un string no vacío');
             err.statusCode = 400;
             throw err;
         }
-        const precio = Number(dishData.precio);
-        if (!Number.isFinite(precio)) {
-            const err = new Error('`precio` is required and must be a valid number');
+        const price = Number(productData.price);
+        if (!Number.isFinite(price) || price <= 0) {
+            const err = new Error('price es requerido y debe ser un número válido mayor a 0');
             err.statusCode = 400;
             throw err;
         }
+        /*if (!Number.isInteger(productData.area_id) || productData.area_id <= 0) {
+            const err = new Error('area_id es requerido y debe ser un número entero válido');
+            err.statusCode = 400;
+            throw err;
+        }*/
 
-        const dish = new Dish({
-            nombre: dishData.nombre.trim(),
-            descripcion: dishData.descripcion,
-            precio,
-            categoria: dishData.categoria,
-            disponible: dishData.disponible !== undefined ? dishData.disponible : true
+        return this.dishRepository.createProduct({
+            name: productData.name.trim(),
+            description: productData.description || null,
+            price,
+            area_id: productData.area_id,
+            category_id: productData.category_id || null,
+            image_url: productData.image_url || null
         });
-
-        if (typeof this.dishRepository.postDish === 'function') {
-            return this.dishRepository.postDish(dish);
-        }
-
-        throw new Error('Repository does not implement a known save/post method');
     }
 }
 
