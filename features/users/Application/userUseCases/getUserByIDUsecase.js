@@ -4,13 +4,15 @@ class GetUsersByIdUseCase {
     }
 
     async execute(id) {
-        const user = await this.userRepository.getUsersById(id);          
-        if (!user) {
-            const err = new Error(`User with ID ${id} not found`);
+        const employee = this.userRepository.getEmployeeById
+            ? await this.userRepository.getEmployeeById(id)
+            : await this.userRepository.getUsersById(id);
+        if (!employee) {
+            const err = new Error('Empleado no encontrado');
             err.statusCode = 404;
             throw err;
-        }   
-        return user;
+        }
+        return employee;
     }
     
 }

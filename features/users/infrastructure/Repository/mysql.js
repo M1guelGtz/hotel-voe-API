@@ -67,14 +67,38 @@ class MySQL {
             throw new Error('Error fetching rows: ' + err.message);
         }
     }
-    async getUsersById(id) {
-        const query = 'SELECT * FROM `user` WHERE userID = ?';
+    async getEmployeeById(id) {
+        const query = `
+            SELECT
+                e.id,
+                e.name,
+                e.username,
+                e.is_active,
+                e.created_at,
+                e.updated_at,
+                r.id     AS role_id,
+                r.name   AS role,
+                a.id     AS area_id,
+                a.name   AS area_name,
+                a.icon   AS area_icon,
+                a.color  AS area_color
+            FROM employees e
+            JOIN roles r ON r.id = e.role_id
+            LEFT JOIN areas a ON a.role_id = e.role_id
+            WHERE e.id = ?
+        `;
         try {
             const rows = await db.executePreparedQuery(query, [id]);
-            return rows[0]; // Assuming id is unique, return the first match
+            const employee = rows && rows[0];
+            if (!employee) return null;
+            return employee;
         } catch (err) {
-            throw new Error('Error fetching user by ID: ' + err.message);
+            throw new Error('Error al obtener empleado: ' + err.message);
         }
+    }
+
+    async getUsersById(id) {
+        return this.getEmployeeById(id);
     }
     async getUserByEmail(email) {
         const query = 'SELECT * FROM `user` WHERE email = ?';

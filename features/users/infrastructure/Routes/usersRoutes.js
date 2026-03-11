@@ -21,6 +21,6 @@ module.exports = function productRoutes(controller) {
     router.get('/email/:email', (req, res) => controller.getUserByEmail(req, res));
     router.put('/:id', (req, res) => controller.putUsers(req, res));
     router.delete('/:id', (req, res) => controller.deleteUsers(req, res));
-
+    
     return router;
 };
