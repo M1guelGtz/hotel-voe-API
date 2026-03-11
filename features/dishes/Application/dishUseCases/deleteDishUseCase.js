@@ -4,9 +4,9 @@ class DeleteDishUseCase {
     }
 
     async execute(id) {
-        const dish = await this.dishRepository.getDishById(id);
-        if (!dish) {
-            const err = new Error(`Dish with ID ${id} not found`);
+        const product = await this.dishRepository.getDishById(id);
+        if (!product) {
+            const err = new Error(`Product with ID ${id} not found`);
             err.statusCode = 404;
             throw err;
         }

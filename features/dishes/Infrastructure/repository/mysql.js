@@ -78,7 +78,26 @@ class MySQLDishAdapter extends DishRepository {
 	}
 
 	async getDishes() {
-		const query = 'SELECT * FROM `dish`';
+		const query = `
+			SELECT
+				p.id,
+				p.area_id,
+				a.name AS area_name,
+				p.category_id,
+				c.name AS category_name,
+				p.name,
+				p.description,
+				p.price,
+				p.image_url,
+				p.is_available,
+				p.is_active,
+				p.created_at,
+				p.updated_at
+			FROM products p
+			JOIN areas a ON a.id = p.area_id
+			LEFT JOIN categories c ON c.id = p.category_id
+			ORDER BY p.id DESC
+		`;
 		try {
 			const rows = await db.fetchRows(query);
 			return rows;
@@ -88,7 +107,26 @@ class MySQLDishAdapter extends DishRepository {
 	}
 
 	async getDishById(id) {
-		const query = 'SELECT * FROM `dish` WHERE dishID = ?';
+		const query = `
+			SELECT
+				p.id,
+				p.area_id,
+				a.name AS area_name,
+				p.category_id,
+				c.name AS category_name,
+				p.name,
+				p.description,
+				p.price,
+				p.image_url,
+				p.is_available,
+				p.is_active,
+				p.created_at,
+				p.updated_at
+			FROM products p
+			JOIN areas a ON a.id = p.area_id
+			LEFT JOIN categories c ON c.id = p.category_id
+			WHERE p.id = ?
+		`;
 		try {
 			const rows = await db.executePreparedQuery(query, [id]);
 			return rows && rows[0];
@@ -98,28 +136,60 @@ class MySQLDishAdapter extends DishRepository {
 	}
 
 	async putDish(id, dishData) {
-		const query = 'UPDATE `dish` SET nombre = ?, descripcion = ?, precio = ?, categoria = ?, disponible = ? WHERE dishID = ?';
 		try {
-			const disponibleVal = dishData.disponible !== undefined ? (dishData.disponible ? 1 : 0) : 1;
-			const result = await db.executePreparedQuery(query, [
-				dishData.nombre,
-				dishData.descripcion,
-				dishData.precio,
-				dishData.categoria,
-				disponibleVal,
+			const current = await this.getDishById(id);
+			if (!current) return null;
+
+			const areaId = dishData.area_id !== undefined ? Number(dishData.area_id) : current.area_id;
+			const categoryId = dishData.category_id !== undefined ? dishData.category_id : current.category_id;
+
+			const areaQuery = 'SELECT id FROM areas WHERE id = ?';
+			const area = await db.executePreparedQuery(areaQuery, [areaId]);
+			if (!area || !area[0]) throw new Error('El área especificada no existe');
+
+			if (categoryId !== null && categoryId !== undefined) {
+				const categoryQuery = 'SELECT id FROM categories WHERE id = ?';
+				const category = await db.executePreparedQuery(categoryQuery, [categoryId]);
+				if (!category || !category[0]) throw new Error('La categoría especificada no existe');
+			}
+
+			const query = `
+				UPDATE products
+				SET
+					area_id = ?,
+					category_id = ?,
+					name = ?,
+					description = ?,
+					price = ?,
+					image_url = ?,
+					is_available = ?,
+					is_active = ?
+				WHERE id = ?
+			`;
+
+			await db.executePreparedQuery(query, [
+				areaId,
+				categoryId,
+				dishData.name !== undefined ? dishData.name : current.name,
+				dishData.description !== undefined ? dishData.description : current.description,
+				dishData.price !== undefined ? Number(dishData.price) : current.price,
+				dishData.image_url !== undefined ? dishData.image_url : current.image_url,
+				dishData.is_available !== undefined ? (dishData.is_available ? 1 : 0) : (current.is_available ? 1 : 0),
+				dishData.is_active !== undefined ? (dishData.is_active ? 1 : 0) : (current.is_active ? 1 : 0),
 				id
 			]);
-			return result;
+
+			return this.getDishById(id);
 		} catch (err) {
 			throw new Error('Error updating dish: ' + err.message);
 		}
 	}
 
 	async deleteDish(id) {
-		const query = 'DELETE FROM `dish` WHERE dishID = ?';
+		const query = 'DELETE FROM products WHERE id = ?';
 		try {
 			const result = await db.executePreparedQuery(query, [id]);
-			return result;
+			return { deleted: !!(result && result.affectedRows), id: Number(id) };
 		} catch (err) {
 			throw new Error('Error deleting dish: ' + err.message);
 		}

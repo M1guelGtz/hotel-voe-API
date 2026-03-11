@@ -8,7 +8,7 @@ class PutDishHandler {
         const dishData = req.body;
         try {
             const updated = await this.putDishUseCase.execute(id, dishData);
-            res.status(200).json(updated);
+            res.status(200).json({ product: updated });
         } catch (err) {
             res.status(err.statusCode || 500).json({ message: err.message });
         }

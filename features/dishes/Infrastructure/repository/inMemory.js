@@ -29,7 +29,11 @@ class InMemoryDishRepository extends DishRepository {
 			price: productData.price,
 			area_id: productData.area_id,
 			category_id: productData.category_id,
-			image_url: productData.image_url
+			image_url: productData.image_url,
+			is_available: true,
+			is_active: true,
+			created_at: new Date().toISOString(),
+			updated_at: new Date().toISOString()
 		};
 		this.products.push(newProduct);
 		return newProduct;
@@ -49,31 +53,34 @@ class InMemoryDishRepository extends DishRepository {
 	}
 
 	async getDishes() {
-		return this.dishes.slice();
+		return this.products.slice();
 	}
 
 	async getDishById(id) {
-		return this.dishes.find(d => d.dishID == id) || null;
+		return this.products.find(p => p.id == id) || null;
 	}
 
 	async putDish(id, dishData) {
-		const dish = this.dishes.find(d => d.dishID == id);
-		if (!dish) return null;
+		const product = this.products.find(p => p.id == id);
+		if (!product) return null;
 
-		if (dishData.nombre !== undefined) dish.nombre = dishData.nombre;
-		if (dishData.descripcion !== undefined) dish.descripcion = dishData.descripcion;
-		if (dishData.precio !== undefined) dish.precio = dishData.precio;
-		if (dishData.categoria !== undefined) dish.categoria = dishData.categoria;
-		if (dishData.disponible !== undefined) dish.disponible = !!dishData.disponible;
+		if (dishData.name !== undefined) product.name = dishData.name;
+		if (dishData.description !== undefined) product.description = dishData.description;
+		if (dishData.price !== undefined) product.price = dishData.price;
+		if (dishData.area_id !== undefined) product.area_id = dishData.area_id;
+		if (dishData.category_id !== undefined) product.category_id = dishData.category_id;
+		if (dishData.image_url !== undefined) product.image_url = dishData.image_url;
+		if (dishData.is_available !== undefined) product.is_available = !!dishData.is_available;
+		if (dishData.is_active !== undefined) product.is_active = !!dishData.is_active;
 
-		return dish;
+		return product;
 	}
 
 	async deleteDish(id) {
-		const index = this.dishes.findIndex(d => d.dishID == id);
-		if (index === -1) return false;
-		this.dishes.splice(index, 1);
-		return true;
+		const index = this.products.findIndex(p => p.id == id);
+		if (index === -1) return { deleted: false, id: Number(id) };
+		this.products.splice(index, 1);
+		return { deleted: true, id: Number(id) };
 	}
 }
 
