@@ -1,15 +1,17 @@
-class GetProductController {
+class GetEmployeesHandler {
     constructor(getProductUseCase) {
         this.getProductUseCase = getProductUseCase;
     }
 
     async handle(req, res) {
+        
+
         try {
-            const users = await this.getProductUseCase.execute();
-            res.status(200).json(users);
+            const employees = await this.getProductUseCase.execute();
+            return res.status(200).json({ employees });
         } catch (err) {
-            res.status(err.statusCode || 500).json({ error: err.message });
+            return res.status(err.statusCode || 500).json({ message: err.message });
         }
     }
 }
-module.exports = GetProductController;
+module.exports = GetEmployeesHandler;

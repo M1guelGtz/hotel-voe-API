@@ -34,15 +34,37 @@ class MySQL {
 
 
     */
-    // Get all products
-    async getUsers() {
-        const query = 'SELECT * FROM `user`';
+    async getEmployees() {
+        const query = `
+            SELECT
+                e.id,
+                e.name,
+                e.username,
+                e.is_active,
+                e.created_at,
+                e.updated_at,
+                r.id     AS role_id,
+                r.name   AS role,
+                a.id     AS area_id,
+                a.name   AS area_name,
+                a.icon   AS area_icon,
+                a.color  AS area_color
+            FROM employees e
+            JOIN roles r ON r.id = e.role_id
+            LEFT JOIN areas a ON a.role_id = e.role_id
+            ORDER BY e.created_at DESC
+        `;
         try {
-            const rows = await db.fetchRows(query);
+            const rows = await db.executePreparedQuery(query, []);
+            if (!rows) return [];
             return rows;
         } catch (err) {
-            throw new Error('Error fetching rows: ' + err.message);
+            throw new Error('Error al obtener empleados: ' + err.message);
         }
+    }
+
+    async getUsers() {
+        return this.getEmployees();
     }
     async putUsers(id, userData) {
         const query = 'UPDATE `user` SET password = ?, username = ? WHERE userID = ?';

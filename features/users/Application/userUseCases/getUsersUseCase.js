@@ -3,8 +3,8 @@ class GetUsersUseCase {
         this.userRepository = userRepository;
     }
 
-    execute() {
-        return this.userRepository.getUsers();
+    async execute() {
+        return this.userRepository.getEmployees();
     }
 }
 
