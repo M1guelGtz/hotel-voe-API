@@ -12,6 +12,7 @@ const { init_dishes } = require('./features/dishes/Infrastructure/dependences');
 const { init_categories } = require('./features/categories/Infrastructure/dependences');
 const { init_areas } = require('./features/areas/Infrastructure/dependences');
 const { init_tables } = require('./features/tables/Infrastructure/dependences');
+const { init_roles } = require('./features/roles/Infrastructure/dependences');
 const path = require('path');
 
 const port = process.env.PORT || 3000;
@@ -50,6 +51,7 @@ process.on('uncaughtException', (err) => {
         init_categories(app);
         init_areas(app);
         init_tables(app);
+        init_roles(app);
 
         // health endpoint
         app.get('/health', async (req, res) => {
