@@ -2,17 +2,16 @@ const express = require('express');
 const app = express();
 const db = require('./core/db');
 const corsMiddleware = require('./core/middleware/cors');
-const { init_users } = require('./features/users/infrastructure/dependences'); // Composition root: wire infrastructure -> application -> delivery
-const { init_hotels } = require('./features/hotels/Infrastructure/dependences');
-const { init_pisos } = require('./features/pisos/Infrastructure/dependences');
-const { init_habitaciones } = require('./features/habitaciones/Infrastructure/dependences');
-const { init_personas } = require('./features/personas/Infrastructure/dependences');
-const { init_huespeds } = require('./features/huespeds/Infrastructure/dependences');
+const { init_users } = require('./features/users/infrastructure/dependences');
 const { init_dishes } = require('./features/dishes/Infrastructure/dependences');
 const { init_categories } = require('./features/categories/Infrastructure/dependences');
 const { init_areas } = require('./features/areas/Infrastructure/dependences');
 const { init_tables } = require('./features/tables/Infrastructure/dependences');
 const { init_roles } = require('./features/roles/Infrastructure/dependences');
+const { init_sessions } = require('./features/sessions/Infrastructure/dependences');
+const { init_orders } = require('./features/orders/Infrastructure/dependences');
+const { init_orderItems } = require('./features/order-items/Infrastructure/dependences');
+const { init_tickets } = require('./features/tickets/Infrastructure/dependences');
 const path = require('path');
 
 const port = process.env.PORT || 3000;
@@ -42,16 +41,15 @@ process.on('uncaughtException', (err) => {
 
         //Aqui se añaden la inicializacion de los features
         init_users(app);
-        init_hotels(app);
-        init_pisos(app);
-        init_habitaciones(app);
-        init_personas(app);
-        init_huespeds(app);
-        init_dishes(app);
-        init_categories(app);
-        init_areas(app);
-        init_tables(app);
         init_roles(app);
+        init_areas(app);
+        init_categories(app);
+        init_dishes(app);
+        init_tables(app);
+        init_sessions(app);
+        init_orders(app);
+        init_orderItems(app);
+        init_tickets(app);
 
         // health endpoint
         app.get('/health', async (req, res) => {
