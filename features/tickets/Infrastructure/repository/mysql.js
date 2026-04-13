@@ -6,7 +6,12 @@ class MySQLTicketAdapter extends TicketRepository {
 
   async createTicket(ticketData) {
     try {
-    const { session_id, waiter_id, payment_method = 'efectivo', tip = 0, discount = 0, notes = null } = ticketData;
+    const { session_id, waiter_id, tip = 0, discount = 0, notes = null } = ticketData;
+
+    const validMethods = ['efectivo', 'tarjeta', 'transferencia', 'otro'];
+    const payment_method = validMethods.includes(ticketData.payment_method)
+      ? ticketData.payment_method
+      : 'efectivo';
 
     // 1. Check session exists and is open
     const sessions = await db.executePreparedQuery(
