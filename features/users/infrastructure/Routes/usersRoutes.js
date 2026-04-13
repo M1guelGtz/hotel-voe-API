@@ -16,6 +16,7 @@ module.exports = function productRoutes(controller) {
 
     // Protected routes
     router.use(authMiddleware);
+    router.put('/fcm-token', (req, res) => controller.updateFcmToken(req, res));
     router.get('/', (req, res) => controller.getUsers(req, res));
     router.get('/:id', (req, res) => controller.getUsersById(req, res));
     router.get('/email/:email', (req, res) => controller.getUserByEmail(req, res));

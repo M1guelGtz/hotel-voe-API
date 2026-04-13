@@ -1,5 +1,5 @@
 class UserController {
-    constructor(getController, deleteController, getByIdController, putController,getByEmailController, registerController , loginController) {
+    constructor(getController, deleteController, getByIdController, putController,getByEmailController, registerController , loginController, fcmTokenController) {
         //this.createController = createController;
         this.getController = getController;
         this.deleteController = deleteController;
@@ -8,6 +8,7 @@ class UserController {
         this.getByEmailController = getByEmailController;
         this.registerController = registerController;
         this.loginController = loginController;
+        this.fcmTokenController = fcmTokenController;
     }
 
 
@@ -45,6 +46,10 @@ class UserController {
 
     registerUser(req, res) {
         return this.registerController.handle(req, res);
+    }
+
+    updateFcmToken(req, res) {
+        return this.fcmTokenController.handle(req, res);
     }
 }
 

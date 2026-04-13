@@ -17,6 +17,7 @@ const PutUserHandler = require('./handlers/putUserHandler');
 const GetUserByEmailHandler = require('./handlers/getUserByEmailHandler');
 const RegisterHandler = require('./handlers/registerhandler');
 const LoginHandler = require('./handlers/loginHandler');
+const UpdateFcmTokenHandler = require('./handlers/updateFcmTokenHandler');
 
 
 function init_users(app) {
@@ -50,6 +51,7 @@ function init_users(app) {
     const getUserByEmailController = new GetUserByEmailHandler(getUserByEmailUsecase);   
     const registerUserController = new RegisterHandler(registerUserUseCase);
     const loginUserController = new LoginHandler(loginUserUsecase);
+    const fcmTokenController = new UpdateFcmTokenHandler();
 
     //controlador
     const userController = new UserController(
@@ -59,7 +61,8 @@ function init_users(app) {
         putUserController,
         getUserByEmailController,
         registerUserController,
-        loginUserController
+        loginUserController,
+        fcmTokenController
     );
 
     const routes = productRoutes(userController);

@@ -1,3 +1,5 @@
+const fcmService = require('../../../../core/firebase/fcmService');
+
 class UpdateItemStatusHandler {
   constructor(updateItemStatusUseCase) {
     this.updateItemStatusUseCase = updateItemStatusUseCase;
@@ -16,6 +18,13 @@ class UpdateItemStatusHandler {
 
       const result = await this.updateItemStatusUseCase.execute(id, status);
       res.status(200).json(result);
+
+      // Notify waiter when item is ready (non-blocking)
+      if (status === 'ready') {
+        fcmService.notifyItemReady(id).catch(err =>
+          console.error('FCM notifyItemReady error:', err.message)
+        );
+      }
     } catch (err) {
       res.status(err.statusCode || 500).json({ message: err.message });
     }
