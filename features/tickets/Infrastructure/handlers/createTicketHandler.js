@@ -8,6 +8,8 @@ class CreateTicketHandler {
             const { session_id, payment_method, tip, discount, notes } = req.body;
             const waiter_id = req.user.id;
 
+            console.log('createTicket request:', { session_id, waiter_id, payment_method, tip, discount, notes });
+
             const ticket = await this.createTicketUseCase.execute({
                 session_id,
                 waiter_id,

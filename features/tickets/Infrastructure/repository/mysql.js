@@ -5,6 +5,7 @@ const db = require('../../../../core/db');
 class MySQLTicketAdapter extends TicketRepository {
 
   async createTicket(ticketData) {
+    try {
     const { session_id, waiter_id, payment_method = 'efectivo', tip = 0, discount = 0, notes = null } = ticketData;
 
     // 1. Check session exists and is open
@@ -89,6 +90,11 @@ class MySQLTicketAdapter extends TicketRepository {
 
     // 9. Return the ticket with its items
     return this.getTicketById(ticketId);
+    } catch (err) {
+      console.error('createTicket error:', err);
+      if (err.statusCode) throw err;
+      throw new Error('Error al crear ticket: ' + err.message);
+    }
   }
 
   async getTickets(filters = {}) {
